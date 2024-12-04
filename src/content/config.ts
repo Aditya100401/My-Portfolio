@@ -7,6 +7,7 @@ function removeDupsAndLowerCase(array: string[]) {
 	return Array.from(distinctItems)
 }
 
+// Post collection definition
 const post = defineCollection({
 	type: 'content',
 	schema: ({ image }) =>
@@ -33,4 +34,25 @@ const post = defineCollection({
 		})
 })
 
-export const collections = { post }
+// Project collection definition
+const project = defineCollection({
+	type: 'content',
+	schema: ({ image }) =>
+		z.object({
+			title: z.string().max(60), // Project title
+			description: z.string().min(50).max(160), // Short description
+			imageUrl: z.string(), // URL for the project image
+			githubRepo: z.string().url().optional(), // Optional GitHub repository link
+			publishDate: z
+				.string()
+				.or(z.date())
+				.optional()
+				.transform((val) => (val ? new Date(val) : undefined)),
+			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+			draft: z.boolean().default(false), // Draft flag
+			featured: z.boolean().default(false) // Optional: If you want to highlight featured projects
+		})
+})
+
+// Export both collections
+export const collections = { post, project }

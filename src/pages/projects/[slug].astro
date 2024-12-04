@@ -1,0 +1,29 @@
+---
+export const prerender = true
+
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+
+import ProjectLayout from '@/layouts/ProjectDetails.astro' // Use a layout for projects
+import { getAllProjects } from '@/utils' // Utility for getting project entries
+
+export const getStaticPaths = (async () => {
+	const projectEntries = await getAllProjects()
+	return projectEntries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry }
+	}))
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+---
+
+<ProjectLayout project={entry}>
+	<Content />
+	{/* Add a link to the GitHub repo */}
+	<a href={entry.githubRepo} target='_blank' class='inline-block mt-4 px-4 py-2 border rounded-lg text-sm font-medium bg-black text-white'>
+		View on GitHub
+	</a>
+</ProjectLayout>

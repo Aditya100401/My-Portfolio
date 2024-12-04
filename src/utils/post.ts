@@ -8,6 +8,14 @@ export async function getAllPosts() {
 	})
 }
 
+/** Note: this function filters out draft projects based on the environment */
+export async function getAllProjects() {
+	return await getCollection('project', ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+}
+
+
 export function sortMDByDate(posts: Array<CollectionEntry<'post'>>) {
 	return posts.sort((a, b) => {
 		const aDate = new Date(a.data.updatedDate ?? a.data.publishDate).valueOf()
