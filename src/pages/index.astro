@@ -9,16 +9,24 @@ import SkillLayout from '../components/SkillLayout.astro'
 import { Image } from 'astro:assets'
 import astro from '../assets/about-astro.png'
 
-import { getAllProjects, sortMDByDate } from '@/utils' // Importing the project utilities
-
 const languages = ['lorem', 'ipsum']
 const frontend = ['lorem', 'ipsum', 'lorem', 'ipsum', 'lorem', 'ipsum', 'lorem']
 const backend = ['lorem', 'ipsum', 'lorem', 'ipsum']
 const others = ['lorem', 'ipsum', 'lorem', 'ipsum', 'lorem']
 
+import { getAllProjects, sortMDByDate } from '@/utils'
+import type { CollectionEntry } from 'astro:content'
+
 const MAX_PROJECTS = 10
-const allProjects = await getAllProjects() // Fetch all projects
-const allProjectsByDate = sortMDByDate(allProjects).slice(0, MAX_PROJECTS) // Sort and limit to max number
+const allProjects: CollectionEntry<'project'>[] = await getAllProjects()
+const allProjectsByDate: CollectionEntry<'project'>[] = sortMDByDate(allProjects).slice(
+	0,
+	MAX_PROJECTS
+)
+
+// Debug Logs
+console.log('🔍 All Projects:', allProjects)
+console.log('📅 Sorted Projects:', allProjectsByDate)
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -92,21 +100,40 @@ const allProjectsByDate = sortMDByDate(allProjects).slice(0, MAX_PROJECTS) // So
 		</Section>
 
 		<Section title='Projects'>
-			{allProjectsByDate.length > 0 && (
-				<ul class='flex flex-col gap-y-4'>
-					{allProjectsByDate.map((p) => (
-						<ProjectCard
-							href={p.githubRepo}
-							heading={p.title}
-							subheading={p.description}
-							imagePath={p.imageUrl}
-							altText={p.title}
-							class='w-full'
-						/>
-					))}
-				</ul>
-			)}
-			{allProjectsByDate.length === 0 && <p>No projects yet.</p>}
+			<div class='flex flex-col gap-8'>
+				{
+					allProjectsByDate.length > 0 ? (
+						<ul class='mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2'>
+							{allProjectsByDate.slice(0, 2).map((p: CollectionEntry<'project'>, index) => (
+								<li class='relative flex h-[400px] flex-col'>
+									<div class='flex-grow'>
+										<ProjectCard
+											href={p.data.githubRepo || '#'}
+											heading={p.data.title}
+											subheading={p.data.description}
+											imagePath={p.data.imageUrl || '/assets/placeholder.png'}
+											altText={p.data.title}
+											class='h-full w-full'
+										/>
+									</div>
+									{index === 1 && (
+										<div class='absolute -bottom-6 right-4 z-10'>
+											<a
+												href='/projects'
+												class='inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-md hover:bg-blue-700'
+											>
+												View More Projects →
+											</a>
+										</div>
+									)}
+								</li>
+							))}
+						</ul>
+					) : (
+						<p class='w-full text-center text-muted-foreground'>No projects yet.</p>
+					)
+				}
+			</div>
 		</Section>
 
 		<Section title='Experience'>
