@@ -40,7 +40,7 @@ const project = defineCollection({
 	schema: ({ image }) =>
 		z.object({
 			title: z.string().max(100),
-			description: z.string().min(50).max(200),
+			description: z.string().min(50).max(500),
 			imageUrl: z.string(), // Path to the project image
 			githubRepo: z.string().url().optional(),
 			publishDate: z.string().or(z.date()).optional(),
