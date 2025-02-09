@@ -8,7 +8,7 @@ on:
     branches:
       - master  # Runs when PR is merged into master
     types:
-      - closed  # Ensures it runs only after merging
+      - closed  # Ensures it runs only after mergingg
 
 jobs:
   create-pr-and-merge:
