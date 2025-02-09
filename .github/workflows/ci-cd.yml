@@ -1,0 +1,75 @@
+name: Dev to Master Auto-Merge & Deploy
+
+on:
+  push:
+    branches:
+      - dev  # Run this workflow whenever code is pushed to 'dev'
+
+jobs:
+  create-pr-and-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for comparison
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Check if PR already exists
+        id: check-pr
+        run: |
+          PR_EXISTS=$(gh pr list --base master --head dev --state open --json number --jq '.[0].number')
+          if [ -n "$PR_EXISTS" ]; then
+            echo "PR_EXISTS=true" >> $GITHUB_ENV
+            echo "PR_NUMBER=$PR_EXISTS" >> $GITHUB_ENV
+          else
+            echo "PR_EXISTS=false" >> $GITHUB_ENV
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request (if not exists)
+        if: env.PR_EXISTS == 'false'
+        run: |
+          gh pr create --base master --head dev --title "Auto-merge Dev to Master" --body "Automated PR to merge dev into master"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Approve and Merge PR
+        if: env.PR_EXISTS == 'false'
+        run: |
+          PR_NUMBER=$(gh pr list --base master --head dev --state open --json number --jq '.[0].number')
+          gh pr merge $PR_NUMBER --merge --delete-branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-to-vercel:
+    needs: create-pr-and-merge
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'  # Only deploy if PR is merged into master
+
+    steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Vercel
+        run: npx vercel --prod
+        env:
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
