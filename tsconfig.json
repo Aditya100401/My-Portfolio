@@ -1,9 +1,15 @@
 {
 	"extends": "astro/tsconfigs/strict",
 	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "react",
+		"module": "ESNext",
+		"target": "ESNext",
+		"moduleResolution": "Node",
 		"strictNullChecks": true,
 		"allowJs": true,
 		"baseUrl": ".",
+		"types": ["react", "react-dom"],
 		"lib": ["es2022", "dom", "dom.iterable"],
 		"paths": {
 			"@/assets/*": ["src/assets/*"],
@@ -14,5 +20,6 @@
 			"@/site-config": ["src/site.config.ts"]
 		}
 	},
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro"],
 	"exclude": ["node_modules", "**/node_modules/*", ".vscode", "dist"]
 }

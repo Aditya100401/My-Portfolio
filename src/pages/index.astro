@@ -71,7 +71,7 @@ console.log('📅 Sorted Projects:', allProjectsByDate)
 						>
 					</Label>
 					<Label
-						title="Let's Connect on Linkedin"
+						title="Let's Connect 🤝"
 						as='a'
 						href='https://www.linkedin.com/in/aditya-sampath10/'
 						target='_blank'
@@ -93,9 +93,12 @@ console.log('📅 Sorted Projects:', allProjectsByDate)
 
 		<Section title='About'>
 			<p class='text-muted-foreground'>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque quia omnis
-				consectetur, voluptas praesentium veniam blanditiis ratione asperiores accusantium laborum
-				odit commodi quis deserunt incidunt et dolor iure ut!
+				I’m Aditya Sampath, a software engineer with expertise in building scalable machine learning
+				and generative AI applications.<br />
+				<br /> Currently pursuing my Master’s in CS from UNC Charlotte, specializing in deep learning,
+				generative AI, and LLM applications. <br />
+				<br /> As part of my ongoing thesis, I'm working on the use of language agents and knowledge
+				graphs for predicting and describing socio-political events.
 			</p>
 		</Section>
 
@@ -120,9 +123,11 @@ console.log('📅 Sorted Projects:', allProjectsByDate)
 										<div class='absolute -bottom-6 right-4 z-10'>
 											<a
 												href='/projects'
-												class='inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-md hover:bg-blue-700'
+												class='inline-flex items-center gap-x-1 rounded-xl border
+                                            border-border bg-primary-foreground px-2 py-1 text-sm
+                                            text-white transition-all hover:bg-input'
 											>
-												View More Projects →
+												View all →
 											</a>
 										</div>
 									)}
@@ -138,19 +143,42 @@ console.log('📅 Sorted Projects:', allProjectsByDate)
 
 		<Section title='Experience'>
 			<Card
-				heading='Lorem Ipsum'
-				subheading='Sit amet consectetur'
-				date='Dec 2022 - Nov 2023'
+				heading='Software Engineer - GenAI Applications'
+				subheading='University of North Carolina at Charlotte'
+				date='Oct 2024 - Present'
 				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
+				altText=''
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<ul class='ml-4 list-disc text-muted-foreground'>
 					<li>
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
-						molestiae laboriosam pariatur!
+						Leading a team of 4 to design and develop GenAI systems for Honeywell in collaboration
+						with the College of Computing.
 					</li>
-					<li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
+					<li>
+						Developing agentic workflows such as ReAct/Reflexion for customer support email
+						classification, to increase solution accuracy from 60% to 90%.
+					</li>
+				</ul>
+			</Card>
+
+			<Card
+				heading='Research Assistant - Machine Learning'
+				subheading='University of North Carolina at Charlotte'
+				date='Feb 2024 - Jun 2024'
+				imagePath='/src/assets/about-astro.png'
+				altText=''
+				imageClass='h-12 w-auto md:-left-16'
+			>
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Deployed text-to-pose estimation models using Docker and HuggingFace, enhancing human
+						motion capture and accuracy by 30%.
+					</li>
+					<li>
+						Developed scripts to generate 3D human mesh structures, creating a pipeline for data
+						augmentation and generation.
+					</li>
 				</ul>
 			</Card>
 		</Section>

@@ -2,60 +2,74 @@
 import PageLayout from '@/layouts/BaseLayout.astro'
 import ToolSection from '@/components/ToolSection.astro'
 import Button from '@/components/Button.astro'
+import {
+	SiTableau,
+	SiMysql,
+	SiReact,
+	SiCplusplus,
+	SiTensorflow,
+	SiPytorch,
+	SiHuggingface,
+	SiLangchain,
+	SiGooglecloud,
+	SiAmazonwebservices,
+	SiMongodb,
+	SiFirebase,
+	SiD3Dotjs,
+	SiWebgl,
+	SiAstro,
+	SiGithub,
+	SiFastapi,
+	SiFlask,
+	SiDocker
+} from 'react-icons/si'
+import { BiLogoJavascript, BiLogoPython } from 'react-icons/bi'
+import { FaCuttlefish } from 'react-icons/fa'
 
-const DESIGN = [
-	{
-		name: 'Figma',
-		description: 'Design Tool',
-		href: 'https://www.figma.com/',
-		iconPath: 'figma',
-		iconBgColour: '#000001'
-	}
+const PROGRAMMING_LANGUAGES = [
+	{ name: 'Python', icon: BiLogoPython, iconBgColour: '#3776AB' },
+	{ name: 'C++', icon: SiCplusplus, iconBgColour: '#007396' },
+	{ name: 'JavaScript', icon: BiLogoJavascript, iconBgColour: '#f4d03f' }
 ]
 
-const PRODUCTIVITY = [
-	{
-		name: 'Arc',
-		description: 'Browser',
-		href: 'https://arc.net/',
-		iconPath: 'arc',
-		iconBgColour: '#414350'
-	},
-	{
-		name: 'Notion',
-		description: 'Note Taking',
-		href: 'https://www.notion.so/product',
-		iconPath: 'notion',
-		iconBgColour: '#EFEFEE'
-	},
-	{
-		name: 'Obsidian',
-		description: 'Long-form Writing',
-		href: 'https://obsidian.md/',
-		iconPath: 'obsidian',
-		iconBgColour: '#7A3EE8'
-	}
+const AI_ML_FRAMEWORKS = [
+	{ name: 'TensorFlow', icon: SiTensorflow, iconBgColour: '#FF6F00' },
+	{ name: 'PyTorch', icon: SiPytorch, iconBgColour: '#EE4C2C' },
+	{ name: 'HuggingFace', icon: SiHuggingface, iconBgColour: '#FFD600' },
+	{ name: 'LangChain', icon: SiLangchain, iconBgColour: '#4B8BBE' }
 ]
 
-const DEVELOPMENT = [
-	{
-		name: 'VS Code',
-		description: 'IDE',
-		href: 'https://code.visualstudio.com/',
-		iconPath: 'vscode',
-		iconBgColour: '#2C2C32'
-	},
-	{
-		name: 'ChatGPT',
-		description: 'AI',
-		href: 'https://chat.openai.com/',
-		iconPath: 'chatgpt',
-		iconBgColour: '#06A67F'
-	}
+const CLOUD_PLATFORMS = [
+	{ name: 'Google Cloud Platform (GCP)', icon: SiGooglecloud, iconBgColour: '#4285F4' },
+	{ name: 'AWS', icon: SiAmazonwebservices, iconBgColour: '#232F3E' }
+]
+
+const DATABASES = [
+	{ name: 'MySQL', icon: SiMysql, iconBgColour: '#00758F' },
+	{ name: 'MongoDB', icon: SiMongodb, iconBgColour: '#47A248' },
+	{ name: 'Firestore', icon: SiFirebase, iconBgColour: '#FFCA28' }
+]
+
+const ANALYTICS = [
+	{ name: 'Tableau', icon: SiTableau, iconBgColour: '#E97627' },
+	{ name: 'D3.js', icon: SiD3Dotjs, iconBgColour: '#F9A03C' }
+]
+
+const WEB_DEVELOPMENT = [
+	{ name: 'React', icon: SiReact, iconBgColour: '#61DAFB' },
+	{ name: 'WebGL', icon: SiWebgl, iconBgColour: '#990000' },
+	{ name: 'Astro', icon: SiAstro, iconBgColour: '#FF5D01' }
+]
+
+const OTHER_TOOLS = [
+	{ name: 'Git', icon: SiGithub, iconBgColour: '#F05032' },
+	{ name: 'FastAPI', icon: SiFastapi, iconBgColour: '#009688' },
+	{ name: 'Flask', icon: SiFlask, iconBgColour: '#000000' },
+	{ name: 'Docker', icon: SiDocker, iconBgColour: '#2496ED' }
 ]
 ---
 
-<PageLayout meta={{ title: 'Home' }}>
+<PageLayout meta={{ title: 'Skills' }}>
 	<div class='w-full'>
 		<Button title='Back' href='/' style='button'>
 			<svg
@@ -75,13 +89,17 @@ const DEVELOPMENT = [
 
 		<div class='mt-5 flex w-full flex-col gap-y-10'>
 			<div>
-				<h1 class='mb-1 text-2xl font-bold'>Tools</h1>
-				<p>Tools and software I use daily</p>
+				<h1 class='mb-1 text-2xl font-bold'>Skills</h1>
+				<p>Technologies and tools I am proficient in</p>
 			</div>
 
-			<ToolSection title='Design' tools={DESIGN} />
-			<ToolSection title='Productivity' tools={PRODUCTIVITY} />
-			<ToolSection title='Development' tools={DEVELOPMENT} />
+			<ToolSection title='Programming' tools={PROGRAMMING_LANGUAGES} />
+			<ToolSection title='AI/ML Frameworks' tools={AI_ML_FRAMEWORKS} />
+			<ToolSection title='Cloud Platforms' tools={CLOUD_PLATFORMS} />
+			<ToolSection title='Databases' tools={DATABASES} />
+			<ToolSection title='Analytics' tools={ANALYTICS} />
+			<ToolSection title='Web Development' tools={WEB_DEVELOPMENT} />
+			<ToolSection title='Other Tools' tools={OTHER_TOOLS} />
 		</div>
 	</div>
 </PageLayout>
