@@ -63,11 +63,19 @@ jobs:
   deploy-to-vercel:
     needs: create-pr-and-merge
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true 
-
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v2
+
+      - name: Check if Master is Up-to-Date
+        run: |
+          git fetch origin master
+          if [[ "$(git rev-parse master)" == "$(git rev-parse origin/master)" ]]; then
+            echo "Master is up to date, proceeding with deployment."
+          else
+            echo "Master is not updated with the latest changes!"
+            exit 1
+          fi
 
       - name: Install Node.js
         uses: actions/setup-node@v2
