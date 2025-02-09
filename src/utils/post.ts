@@ -1,45 +1,47 @@
 import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 
-/** Note: this function filters out draft posts based on the environment */
-export async function getAllPosts() {
+/** Fetch all posts */
+export async function getAllPosts(): Promise<CollectionEntry<'post'>[]> {
 	return await getCollection('post', ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true
 	})
 }
 
-/** Note: this function filters out draft projects based on the environment */
-export async function getAllProjects() {
+/** Fetch all projects */
+export async function getAllProjects(): Promise<CollectionEntry<'project'>[]> {
 	return await getCollection('project', ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+		return import.meta.env.PROD ? data.draft !== true : true
+	})
 }
 
-
-export function sortMDByDate(posts: Array<CollectionEntry<'post'>>) {
-	return posts.sort((a, b) => {
-		const aDate = new Date(a.data.updatedDate ?? a.data.publishDate).valueOf()
-		const bDate = new Date(b.data.updatedDate ?? b.data.publishDate).valueOf()
+/** Sort markdown entries by date */
+export function sortMDByDate<T extends CollectionEntry<'post' | 'project'>>(entries: T[]): T[] {
+	return entries.sort((a, b) => {
+		const aDate = new Date((a.data as any).updatedDate ?? (a.data as any).publishDate).valueOf()
+		const bDate = new Date((b.data as any).updatedDate ?? (b.data as any).publishDate).valueOf()
 		return bDate - aDate
 	})
 }
 
-/** Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so. */
-export function getAllTags(posts: Array<CollectionEntry<'post'>>) {
-	return posts.flatMap((post) => [...post.data.tags])
+/** Get all tags from entries */
+export function getAllTags<T extends CollectionEntry<'post' | 'project'>>(entries: T[]): string[] {
+	return entries.flatMap((entry) => [...(entry.data as any).tags])
 }
 
-/** Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so. */
-export function getUniqueTags(posts: Array<CollectionEntry<'post'>>) {
-	return [...new Set(getAllTags(posts))]
+/** Get unique tags from entries */
+export function getUniqueTags<T extends CollectionEntry<'post' | 'project'>>(
+	entries: T[]
+): string[] {
+	return [...new Set(getAllTags(entries))]
 }
 
-/** Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so. */
-export function getUniqueTagsWithCount(
-	posts: Array<CollectionEntry<'post'>>
+/** Get unique tags with counts */
+export function getUniqueTagsWithCount<T extends CollectionEntry<'post' | 'project'>>(
+	entries: T[]
 ): Array<[string, number]> {
 	return [
-		...getAllTags(posts).reduce(
+		...getAllTags(entries).reduce(
 			(acc, t) => acc.set(t, (acc.get(t) || 0) + 1),
 			new Map<string, number>()
 		)

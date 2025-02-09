@@ -10,6 +10,7 @@ import { expressiveCodeOptions } from './src/site.config'
 import icon from 'astro-icon'
 
 import vercel from '@astrojs/vercel/serverless'
+import react from '@astrojs/react'
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,7 +22,8 @@ export default defineConfig({
 		}),
 		sitemap(),
 		mdx(),
-		icon()
+		icon(),
+		react()
 	],
 	markdown: {
 		remarkPlugins: [remarkUnwrapImages, remarkReadingTime],
