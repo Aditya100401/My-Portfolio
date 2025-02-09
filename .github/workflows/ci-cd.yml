@@ -48,6 +48,7 @@ jobs:
         if: env.PR_EXISTS == 'false'
         run: |
           gh pr create --base master --head dev --title "Auto-merge Dev to Master" --body "Automated PR to merge dev into master"
+          echo "PR_EXISTS=true" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
