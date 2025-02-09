@@ -44,10 +44,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Approve and Merge PR
-        if: env.PR_EXISTS == 'false'
+        if: env.PR_EXISTS == 'true'
         run: |
           PR_NUMBER=$(gh pr list --base master --head dev --state open --json number --jq '.[0].number')
-          gh pr merge $PR_NUMBER --merge --delete-branch
+          gh pr merge $PR_NUMBER --merge 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
