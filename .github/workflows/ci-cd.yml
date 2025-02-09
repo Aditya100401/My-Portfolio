@@ -63,7 +63,7 @@ jobs:
   deploy-to-vercel:
     needs: create-pr-and-merge
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.event.pull_request.merged == true  # Only deploy if PR is merged
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true 
 
     steps:
       - name: Checkout master branch
