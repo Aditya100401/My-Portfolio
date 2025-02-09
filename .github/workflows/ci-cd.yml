@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - dev  # Run this workflow whenever code is pushed to 'dev'
+  pull_request:
+    branches:
+      - master  # Runs when PR is merged into master
+    types:
+      - closed  # Ensures it runs only after mergingg
 
 jobs:
   create-pr-and-merge:
@@ -22,6 +27,9 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
+
+      - name: Authenticate with GH_PAT
+        run: gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Check if PR already exists
         id: check-pr
@@ -54,7 +62,7 @@ jobs:
   deploy-to-vercel:
     needs: create-pr-and-merge
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'  # Only deploy if PR is merged into master
+    if: github.event.pull_request.merged == true  # Only deploy if PR is merged
 
     steps:
       - name: Checkout master branch
@@ -63,7 +71,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
