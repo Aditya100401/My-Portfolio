@@ -69,11 +69,14 @@ jobs:
 
       - name: Check if Master is Up-to-Date
         run: |
-          git fetch origin master
-          if [[ "$(git rev-parse master)" == "$(git rev-parse origin/master)" ]]; then
+          git fetch origin master:master  # Ensure master exists locally
+          LOCAL_HASH=$(git rev-parse master)
+          REMOTE_HASH=$(git rev-parse origin/master)
+
+          if [[ "$LOCAL_HASH" == "$REMOTE_HASH" ]]; then
             echo "Master is up to date, proceeding with deployment."
           else
-            echo "Master is not updated with the latest changes!"
+            echo "Master is NOT up to date!"
             exit 1
           fi
 
