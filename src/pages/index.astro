@@ -35,7 +35,7 @@ console.log('📅 Sorted Projects:', allProjectsByDate)
 			<Image
 				src={import('../assets/proflie-alt-2.png')}
 				alt='profile photo'
-				class='h-28 w-auto rounded-full p-3 scale-150'
+				class='h-28 w-auto scale-150 rounded-full p-3'
 				loading='eager'
 			/>
 
@@ -95,10 +95,11 @@ console.log('📅 Sorted Projects:', allProjectsByDate)
 			<p class='text-muted-foreground'>
 				I’m Aditya Sampath, a software engineer with expertise in building scalable machine learning
 				and generative AI applications.<br />
-				<br /> Currently pursuing my Master’s in CS from UNC Charlotte, specializing in deep learning,
-				generative AI, and LLM applications. <br />
-				<br /> As part of my ongoing thesis, I'm working on the use of language agents and knowledge
-				graphs for predicting and describing socio-political events.
+				<br /> Just Completed my Master’s in CS from UNC Charlotte, specializing in deep learning, generative
+				AI, and LLM applications. <br />
+				<br /> As part of my thesis, I'm evaluated the efficiency of building scalable systems using
+				LLMs for Computational Social Science, developing scalable annotation pipelines for high-risk
+				posts and language agents combined with temporal knowledge graphs for socio-political event prediction.
 			</p>
 		</Section>
 
@@ -143,21 +144,44 @@ console.log('📅 Sorted Projects:', allProjectsByDate)
 
 		<Section title='Experience'>
 			<Card
-				heading='Software Engineer Intern - GenAI Applications'
-				subheading='Honeywell'
-				date='Oct 2024 - Present'
+				heading='GenAI Researcher'
+				subheading='University of North Carolina at Charlotte'
+				date='Jan 2025 - May 2025'
 				imagePath='/src/assets/proflie-alt-2.png'
 				altText=''
 				imageClass='h-9 w-auto md:-left-16 rounded-lg'
 			>
 				<ul class='ml-4 list-disc text-muted-foreground'>
 					<li>
-						Leading a team of 4 to design and develop genAI systems for Honeywell's internal tools
-						in collaboration with the College of Computing.
+						Conducted a thesis on evaluating LLMs to develop scalable systems for Computational
+						Social Science, engineering a scalable Chain-of-Thought annotation pipeline to classify
+						3.5M+ high-risk posts (~80% manual acceptance accuracy) and developing agentic workflows
+						with Temporal Knowledge Graphs for bias-aware, interpretable socio-political event
+						prediction.
+					</li>
+				</ul>
+			</Card>
+
+			<Card
+				heading='Software Engineer Intern - GenAI Applications'
+				subheading='Honeywell'
+				date='Dec 2024 - May 2025'
+				imagePath='/src/assets/proflie-alt-2.png'
+				altText=''
+				imageClass='h-9 w-auto md:-left-16 rounded-lg'
+			>
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Engineered a modular agentic workflow using the Reflexion technique, increasing ticket
+						classification accuracy by 13% for ambiguous support emails.
 					</li>
 					<li>
-						Developing agentic workflows such as ReAct/Reflexion for customer support email
-						classification, to increase solution accuracy from 60% to 90%.
+						Designed a dual-agent prototype integrating ReAct and Hidden CoT strategies to generate
+						fast and detailed answers in Honeywell’s internal GenAI tool
+					</li>
+					<li>
+						Improved document retrieval precision by developing advanced prompt structures using
+						Chain-of-Thought (CoT) and Hidden CoT prompting for query rewriting tasks.
 					</li>
 				</ul>
 			</Card>
